@@ -12,12 +12,12 @@ const listStrapiVersions = ({ minVersion }) => {
     encoding: "utf8",
   });
 
-  git("checkout master");
+  git("checkout main");
   const alreadyInstalled = git("branch")
     .trim()
     .split("\n")
     .map((v) => v.trim())
-    .filter((v) => v !== "* master");
+    .filter((v) => v !== "* main");
 
   const versions = JSON.parse(rawVersions.replaceAll("'", '"'));
 
@@ -132,7 +132,7 @@ const moveVersionsToBranches = (versions) => {
     if (!fs.existsSync(strapiPath)) continue;
 
     console.log(`\n> Creating branch for ${version}`);
-    git("checkout master");
+    git("checkout main");
 
     // Delete branch if it already exists
     try {
@@ -158,7 +158,7 @@ const main = async () => {
   moveVersionsToBranches(versions);
 
   console.log("\nDone.");
-  git("checkout master");
+  git("checkout main");
 };
 
 main();
